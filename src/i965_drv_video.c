@@ -1501,8 +1501,16 @@ i965_suface_external_memory(VADriverContextP ctx,
         obj_surface->height = memory_attibute->data_size / obj_surface->width;
     else
         obj_surface->height = memory_attibute->offsets[1] / obj_surface->width;
+
+#if 1
+    if (memory_attibute->num_planes > 1) {
+        ASSERT_RET(IS_ALIGNED(obj_surface->height, 16), VA_STATUS_ERROR_INVALID_PARAMETER);
+        ASSERT_RET(obj_surface->height >= obj_surface->orig_height, VA_STATUS_ERROR_INVALID_PARAMETER);
+    }
+#else
     ASSERT_RET(IS_ALIGNED(obj_surface->height, 16), VA_STATUS_ERROR_INVALID_PARAMETER);
     ASSERT_RET(obj_surface->height >= obj_surface->orig_height, VA_STATUS_ERROR_INVALID_PARAMETER);
+#endif
 
     if (tiling) {
         ASSERT_RET(IS_ALIGNED(obj_surface->width, 128), VA_STATUS_ERROR_INVALID_PARAMETER);
@@ -1524,6 +1532,7 @@ i965_suface_external_memory(VADriverContextP ctx,
     switch (obj_surface->fourcc) {
     case VA_FOURCC_NV12:
     case VA_FOURCC_P010:
+
         ASSERT_RET(memory_attibute->num_planes == 2, VA_STATUS_ERROR_INVALID_PARAMETER);
         ASSERT_RET(memory_attibute->pitches[0] == memory_attibute->pitches[1], VA_STATUS_ERROR_INVALID_PARAMETER);
 
@@ -1844,11 +1853,13 @@ i965_CreateSurfaces2(
 
         case I965_SURFACE_MEM_GEM_FLINK:
         case I965_SURFACE_MEM_DRM_PRIME:
+
             vaStatus = i965_suface_external_memory(ctx,
                                                    obj_surface,
                                                    memory_type,
                                                    memory_attibute,
                                                    i);
+
             break;
         }
         if (VA_STATUS_SUCCESS != vaStatus) {
