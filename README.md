@@ -1,3 +1,14 @@
+DISCONTINUATION OF PROJECT
+
+This project will no longer be maintained by Intel.
+
+Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases, or updates, to this project.  
+
+Intel no longer accepts patches to this project.
+
+If you have an ongoing need to use this project, are interested in independently developing it, or would like to maintain patches for the open source software community, please create your own fork of this project.  
+
+Contact: webadmin@linux.intel.com
 [![Stories in Ready](https://badge.waffle.io/01org/intel-vaapi-driver.png?label=ready&title=Ready)](http://waffle.io/01org/intel-vaapi-driver)
 [![Build Status](https://travis-ci.org/01org/intel-vaapi-driver.svg?branch=master)](https://travis-ci.org/01org/intel-vaapi-driver)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/11612/badge.svg)](https://scan.coverity.com/projects/01org-intel-vaapi-driver)
